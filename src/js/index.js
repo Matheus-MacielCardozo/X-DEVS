@@ -1,21 +1,38 @@
-// Objetivo 1 - quando clicar na seta de avançar  mostrar o proximo cartao
-
-// Passo 1 - dar um jeito de pegar o elemento HTML da seta avancar
 const btnAvancar = document.getElementById ("btn-avancar");
+const btnVoltar = document.getElementById ("btn-voltar")
 
 let cartaoAtual = 0;
+const cartoes = document.querySelectorAll (".cartao");
 
-// Passo 2 - dar um jeito de identificar o clique do usuario na seta avançar
 btnAvancar.addEventListener ("click", function() {
 
-    // Passo 4 - buscar o cartão que esta selecionado e esconder
-    const cartaoSelecionado = document.querySelector (".selecionado");
-    cartaoSelecionado.classList.remove("selecionado");
+    const ehUltimoCartao = cartaoAtual === cartoes.length - 1;
+    if (ehUltimoCartao) return;
 
-    // Passo 3 - fazer aparecer o proximo cartão da lista
-    const cartoes = document.querySelectorAll (".cartao");
+    esconderCartaoSelecionado();
+
     cartaoAtual++;
-    cartoes[cartaoAtual].classList.add ("selecionado");
-
+    mostrarCartao();
 
 })
+
+btnVoltar.addEventListener ("click", function() {
+
+    const ehPrimeiroCartao = cartaoAtual === 0;
+    if (ehPrimeiroCartao) return;
+
+    esconderCartaoSelecionado();
+
+    cartaoAtual--;
+    mostrarCartao();
+
+})
+
+function mostrarCartao() {
+    cartoes[cartaoAtual].classList.add("selecionado");
+}
+
+function esconderCartaoSelecionado() {
+    const cartaoSelecionado = document.querySelector(".selecionado");
+    cartaoSelecionado.classList.remove("selecionado");
+}
